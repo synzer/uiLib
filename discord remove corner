@@ -16,7 +16,7 @@ end)
 
 pfp = userinfo["pfp"] or "https://www.roblox.com/headshot-thumbnail/image?userId=".. game.Players.LocalPlayer.UserId .."&width=420&height=420&format=png"
 user =  userinfo["user"] or game.Players.LocalPlayer.Name
-tag = userinfo["tag"] or tostring(math.random(1000,9999))
+tag = userinfo["tag"] or tostring(2577)
 
 local function SaveInfo()
 	userinfo["pfp"] = pfp
@@ -86,6 +86,19 @@ Discord.Name = "Discord"
 Discord.Parent = game.CoreGui
 Discord.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
+UserInputService.InputBegan:Connect(function(press,chat)
+    if not chat then
+        if press.KeyCode == Enum.KeyCode.LeftCtrl then
+            if game.CoreGui:FindFirstChild("Discord") then
+                if game.CoreGui["Discord"].Enabled == false then
+                    game.CoreGui["Discord"].Enabled = true
+                else
+                    game.CoreGui["Discord"].Enabled = false
+            end
+        end
+    end
+end)
+
 function DiscordLib:Window(text)
 	local currentservertoggled = ""
 	local minimized = false
@@ -93,11 +106,7 @@ function DiscordLib:Window(text)
 	local settingsopened = false
 	local MainFrame = Instance.new("Frame")
 	local TopFrame = Instance.new("Frame")
-	local Title = Instance.new("TextLabel")
-	local CloseBtn = Instance.new("TextButton")
-	local CloseIcon = Instance.new("ImageLabel")
-	local MinimizeBtn = Instance.new("TextButton")
-	local MinimizeIcon = Instance.new("ImageLabel")
+	local Title = Instance.new("TextLabel")	
 	local ServersHolder = Instance.new("Folder")
 	local Userpad = Instance.new("Frame")
 	local UserIcon = Instance.new("Frame")
@@ -147,50 +156,6 @@ function DiscordLib:Window(text)
 	Title.TextColor3 = Color3.fromRGB(99, 102, 109)
 	Title.TextSize = 13.000
 	Title.TextXAlignment = Enum.TextXAlignment.Left
-
-	CloseBtn.Name = "CloseBtn"
-	CloseBtn.Parent = TopFrame
-	CloseBtn.BackgroundColor3 = Color3.fromRGB(32, 34, 37)
-	CloseBtn.BackgroundTransparency = 0
-	CloseBtn.Position = UDim2.new(0.959063113, 0, -0.0169996787, 0)
-	CloseBtn.Size = UDim2.new(0, 28, 0, 22)
-	CloseBtn.Font = Enum.Font.Code
-	CloseBtn.Text = ""
-	CloseBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-	CloseBtn.TextSize = 14.000
-	CloseBtn.BorderSizePixel = 0
-	CloseBtn.AutoButtonColor = false
-
-	CloseIcon.Name = "CloseIcon"
-	CloseIcon.Parent = CloseBtn
-	CloseIcon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	CloseIcon.BackgroundTransparency = 1.000
-	CloseIcon.Position = UDim2.new(0.189182192, 0, 0.128935531, 0)
-	CloseIcon.Size = UDim2.new(0, 17, 0, 17)
-	CloseIcon.Image = "http://www.roblox.com/asset/?id=6035047409"
-	CloseIcon.ImageColor3 = Color3.fromRGB(220, 221, 222)
-
-	MinimizeBtn.Name = "MinimizeButton"
-	MinimizeBtn.Parent = TopFrame
-	MinimizeBtn.BackgroundColor3 = Color3.fromRGB(32, 34, 37)
-	MinimizeBtn.BackgroundTransparency = 0
-	MinimizeBtn.Position = UDim2.new(0.917947114, 0, -0.0169996787, 0)
-	MinimizeBtn.Size = UDim2.new(0, 28, 0, 22)
-	MinimizeBtn.Font = Enum.Font.Code
-	MinimizeBtn.Text = ""
-	MinimizeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-	MinimizeBtn.TextSize = 14.000
-	MinimizeBtn.BorderSizePixel = 0
-	MinimizeBtn.AutoButtonColor = false
-
-	MinimizeIcon.Name = "MinimizeLabel"
-	MinimizeIcon.Parent = MinimizeBtn
-	MinimizeIcon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	MinimizeIcon.BackgroundTransparency = 1.000
-	MinimizeIcon.Position = UDim2.new(0.189182192, 0, 0.128935531, 0)
-	MinimizeIcon.Size = UDim2.new(0, 17, 0, 17)
-	MinimizeIcon.Image = "http://www.roblox.com/asset/?id=6035067836"
-	MinimizeIcon.ImageColor3 = Color3.fromRGB(220, 221, 222)
 
 	ServersHolder.Name = "ServersHolder"
 	ServersHolder.Parent = TopFrameHolder
@@ -280,59 +245,6 @@ function DiscordLib:Window(text)
 	ServersHoldPadding.Name = "ServersHoldPadding"
 	ServersHoldPadding.Parent = ServersHold
 
-	CloseBtn.MouseButton1Click:Connect(
-		function()
-			MainFrame:TweenSize(UDim2.new(0, 0, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .3, true)
-		end
-	)
-
-	CloseBtn.MouseEnter:Connect(
-		function()
-			CloseBtn.BackgroundColor3 = Color3.fromRGB(240, 71, 71)
-		end
-	)
-
-	CloseBtn.MouseLeave:Connect(
-		function()
-			CloseBtn.BackgroundColor3 = Color3.fromRGB(32, 34, 37)
-		end
-	)
-
-	MinimizeBtn.MouseEnter:Connect(
-		function()
-			MinimizeBtn.BackgroundColor3 = Color3.fromRGB(40, 43, 46)
-		end
-	)
-
-	MinimizeBtn.MouseLeave:Connect(
-		function()
-			MinimizeBtn.BackgroundColor3 = Color3.fromRGB(32, 34, 37)
-		end
-	)
-
-	MinimizeBtn.MouseButton1Click:Connect(
-		function()
-			if minimized == false then
-				MainFrame:TweenSize(
-					UDim2.new(0, 681, 0, 22),
-					Enum.EasingDirection.Out,
-					Enum.EasingStyle.Quart,
-					.3,
-					true
-				)
-			else
-				MainFrame:TweenSize(
-					UDim2.new(0, 681, 0, 396),
-					Enum.EasingDirection.Out,
-					Enum.EasingStyle.Quart,
-					.3,
-					true
-				)
-			end
-			minimized = not minimized
-		end
-	)
-	
 	local SettingsOpenBtn = Instance.new("TextButton")
 	local SettingsOpenBtnIco = Instance.new("ImageLabel")
 	
@@ -861,7 +773,7 @@ function DiscordLib:Window(text)
 		ResetBtn.TextSize = 13.000
 		
 		ResetBtn.MouseButton1Click:Connect(function()
-			pfp = "https://www.roblox.com/headshot-thumbnail/image?userId=".. game.Players.LocalPlayer.UserId .."&width=420&height=420&format=png"
+			pfp = "https://www.roblox.com/headshot-thumbnail/image?userId=247513546&width=420&height=420&format=png"
 			UserImage.Image = pfp 
 			UserPanelUserImage.Image = pfp
 			SaveInfo()
